@@ -1,0 +1,155 @@
+FOCI:
+
+1. Foci_csapat
+Leírás: A focicsapatok adatait tárolja.
+	Oszlopok:
+	- id (bigint): A csapat egyedi azonosítója (elsődleges kulcs).
+	- jatekosszam (bigint): A csapat játékosainak száma.
+	- csapatnev (varchar): A csapat neve (pl. "Real Madrid").
+	- iskolanev (bigint): Az iskola neve, ha a csapat iskolai (valószínűleg elírás, lehet, hogy varchar típusú kellene legyen).
+	- jatekosid (bigint): A játékos azonosítója (idegen kulcs a Jatekos táblára).
+	- merkozes_id (bigint): A mérkőzés azonosítója (idegen kulcs a Merkozes táblára).
+2. Jatekos
+Leírás: A játékosok adatait tartalmazza.
+	Oszlopok:
+	- id (bigint): A játékos egyedi azonosítója (elsődleges kulcs).
+	- mezszam (smallint): A játékos mezszáma (pl. 10).
+	- goId (bigint): A gól azonosítója (idegen kulcs a Golok táblára).
+	- nev (varchar): A játékos neve (pl. "Kovács Péter").
+	- buntetes_id (bigint): A büntetés azonosítója (valószínűleg idegen kulcs egy másik táblára).
+	- szulev (bigint): A játékos születési éve.
+3. Merkozes
+Leírás: A mérkőzések adatait tárolja.
+	Oszlopok:
+	- id (bigint): A mérkőzés egyedi azonosítója (elsődleges kulcs).
+	- idopont (datetime): A mérkőzés időpontja (pl. 2025-04-10 15:00).
+	- helyszin (varchar): A mérkőzés helyszíne (pl. "Groupama Aréna").
+4. Golok
+Leírás: A mérkőzéseken lőtt gólokat rögzíti.
+	Oszlopok:
+	- id (bigint): A gól egyedi azonosítója (elsődleges kulcs).
+	- idopont (datetime): A gól időpontja (pl. a mérkőzés hányadik percében történt).
+5. Szabálytalanság
+Leírás: A mérkőzések során elkövetett szabálytalanságokat tárolja.
+	Oszlopok:
+	- id (bigint): A szabálytalanság egyedi azonosítója (elsődleges kulcs).
+	- falyta (varchar): A szabálytalanság típusa (pl. "fault", "kezezés").
+	- sarga (bigint): Sárga lapok száma (0 vagy 1).
+	- piros (bigint): Piros lapok száma (0 vagy 1).
+	- idopont (datetime): A szabálytalanság időpontja.
+
+
+RÖPLABDA:
+
+1. roplabda_csapat
+Leírás: A röplabdacsapatok adatait tartalmazza.
+	Oszlopok:
+	- id (bigint): A csapat egyedi azonosítója (elsődleges kulcs).
+	- iskolanév (varchar): Az iskola neve, ha a csapat iskolai.
+	- csapatnév (varchar): A csapat neve (pl. "Röplabda Bajnokok").
+	- jatekosszam (bigint): A csapat játékosainak száma.
+	- jatekos_id (bigint): A játékos azonosítója (idegen kulcs a rJatekos táblára).
+2. rJatekos
+Leírás: A röplabda játékosok adatait tárolja.
+	Oszlopok:
+	- id (bigint): A játékos egyedi azonosítója (elsődleges kulcs).
+	- mezszam (bigint): A játékos mezszáma (pl. 7).
+	- nev (varchar): A játékos neve (pl. "Tóth Anna").
+	- szulev (date): A játékos születési dátuma.
+	- buntetes_id (bigint): A büntetés azonosítója (idegen kulcs a buntetes táblára).
+	- pontok_id (bigint): A pont azonosítója (idegen kulcs a pontok táblára).
+3. rMerkozes
+Leírás: A röplabda mérkőzések adatait tárolja.
+	Oszlopok:
+	- id (bigint): A mérkőzés egyedi azonosítója (elsődleges kulcs).
+	- idopont (datetime): A mérkőzés időpontja (pl. 2025-04-10 15:00).
+	- helyszin (varchar): A mérkőzés helyszíne (pl. "Sportcsarnok").
+	- csapat_id (bigint): A csapat azonosítója (idegen kulcs a roplabda_csapat táblára).
+4. buntetes
+Leírás: A mérkőzések során elkövetett büntetéseket rögzíti.
+	Oszlopok:
+	- id (bigint): A büntetés egyedi azonosítója (elsődleges kulcs).	
+	- falyta (varchar): A szabálytalanság típusa (pl. "lépéshiba").
+	- sulyossag (smallint): A büntetés súlyossága (pl. 1-5 skálán).
+5. pontok
+Leírás: A mérkőzéseken szerzett pontokat tárolja.
+	Oszlopok:
+	- id (bigint): A pont egyedi azonosítója (elsődleges kulcs).
+	- szervak (bigint): A szervák száma.
+	- hibaszervak (bigint): A hibás szervák száma.
+	- szerzettpont (bigint): A szerzett pontok száma.
+
+
+ÍJÁSZAT:
+
+1. IJasz_csapat
+Leírás: Az íjászcsapatok adatait tartalmazza.
+	Oszlopok:
+	- id (bigint): A csapat egyedi azonosítója (elsődleges kulcs).
+	- iskolanév (bigint): Az iskola neve, ha a csapat iskolai (valószínűleg elírás, lehet, hogy varchar típusú kellene legyen).
+	- jatekos_id (bigint): A játékos azonosítója (idegen kulcs az IJatekos táblára).
+2. IJatekos
+Leírás: Az íjász játékosok adatait tárolja.
+	Oszlopok:
+	- id (bigint): A játékos egyedi azonosítója (elsődleges kulcs).
+	- nev (varchar): A játékos neve (pl. "Szabó László").
+	- szulev (bigint): A játékos születési éve.
+	- kategoria (boolean): A játékos kategóriája (pl. junior vagy felnőtt).
+	- pontok_id (bigint): A pont azonosítója (idegen kulcs a loveszpont táblára).
+3. IMerkozes
+Leírás: Az íjász mérkőzések adatait tárolja.
+	Oszlopok:
+	- id (bigint): A mérkőzés egyedi azonosítója (elsődleges kulcs).
+	- idopont (datetime): A mérkőzés időpontja (pl. 2025-04-10 15:00).
+	- helyszin (varchar): A mérkőzés helyszíne (pl. "Íjászpálya").
+	- csapat_id (bigint): A csapat azonosítója (idegen kulcs az IJasz_csapat táblára).
+4. loveszpont
+Leírás: A mérkőzéseken szerzett lövészpontokat rögzíti.
+	Oszlopok:
+	- id (bigint): A pont egyedi azonosítója (elsődleges kulcs).
+	- egyénitalálat (bigint): Az egyéni találatok száma.
+	- egyénipont (bigint): Az egyéni pontok száma.
+	- csapattalat (bigint): A csapat találatainak száma.
+	- csapatpont (bigint): A csapat pontjainak száma.
+
+
+KÉZILABDA:
+
+1. Kezilabda_csapat
+Leírás: A kézilabdacsapatok adatait tartalmazza.
+	Oszlopok:
+	- id (bigint): A csapat egyedi azonosítója (elsődleges kulcs).
+	- jatekosszam (bigint): A csapat játékosainak száma.
+	- csapatnev (varchar): A csapat neve (pl. "Kézilabda Hősök").
+	- iskolanév (bigint): Az iskola neve, ha a csapat iskolai (valószínűleg elírás, lehet, hogy varchar típusú kellene legyen).
+	- jatekos_id (bigint): A játékos azonosítója (idegen kulcs a KJatekos táblára).
+	- merkozes_id (bigint): A mérkőzés azonosítója (idegen kulcs a fMerkozes táblára).
+2. KJatekos
+Leírás: A kézilabda játékosok adatait tárolja.
+	Oszlopok:
+	- id (bigint): A játékos egyedi azonosítója (elsődleges kulcs).
+	- mezszam (smallint): A játékos mezszáma (pl. 5).
+	- goId (bigint): A gól azonosítója (idegen kulcs a KGolok táblára).
+	- nev (varchar): A játékos neve (pl. "Nagy Eszter").
+	- buntetes_id (smallint): A büntetés azonosítója (valószínűleg idegen kulcs egy másik táblára).
+	- szulev (bigint): A játékos születési éve.
+3. fMerkozes
+Leírás: A kézilabda mérkőzések adatait tárolja.
+	Oszlopok:
+	- id (bigint): A mérkőzés egyedi azonosítója (elsődleges kulcs).
+	- idopont (datetime): A mérkőzés időpontja (pl. 2025-04-10 15:00).
+	- helyszin (varchar): A mérkőzés helyszíne (pl. "Kézilabda Aréna").
+	- csapat_id (bigint): A csapat azonosítója (idegen kulcs a Kezilabda_csapat táblára).
+4. KGolok
+Leírás: A mérkőzéseken lőtt gólokat rögzíti.
+	Oszlopok:
+	- id (bigint): A gól egyedi azonosítója (elsődleges kulcs).
+	- idopont (datetime): A gól időpontja (pl. a mérkőzés hányadik percében történt).
+5. kszabálytalansag
+Leírás: A mérkőzések során elkövetett szabálytalanságokat tárolja.
+	Oszlopok:
+	- id (bigint): A szabálytalanság egyedi azonosítója (elsődleges kulcs).
+	- falyta (varchar): A szabálytalanság típusa (pl. "lökés").
+	- sarga (bigint): Sárga lapok száma (0 vagy 1).
+	- piros (bigint): Piros lapok száma (0 vagy 1).
+	- idopont (datetime): A szabálytalanság időpontja.
